@@ -1,0 +1,107 @@
+TIL
+오늘 공부한 컨셉
+1. jsp) 서블릿과 jsp
+	서블릿의 get방식과 post방식
+	jsp 구성요소  <스크립트까지>
+2. oracle sql&pl) 데이터 처리방식
+		 multi-user system
+		 메모리 계층구조
+		 데이터 베이스
+		 DBMS
+상세내용
+(서블릿과 JSP)
+servlet
+만든 목적: 자바 웹 프로그램 개발을 위해 만들어진 기술
+동작 구조: 클라이언트 웹-> 로그인 요정-> 웹 서버 -> 서블릿 호출 -> 서블릿 실행/전달 값 데이터베이스와 연동
+	   -> html 전달받은 내용 해석해 웹 서버를 통해 웹 브라우저에 띄운다.
+
+결론: html코드를 자바로 작성하는것과 동작 구조가 너무 복잡하고 효율적이지 못하다.
+
+jsp
+만든 목적: html과 데이터 결합이 쉬워짐
+동작구조: html에서 java코드 사용 가능
+
+결론: 직관적
+
+(서블릿의 get방식 post방식)
+서블릿 작성법: javax.servlet.http.HttpServlet 클래스로부터 상속받아 작성
+	     자바 코드 작성 -> 자바 코드 컴파일해 클래스 파일 생성
+
+서블릿 클래스는 Http 프로토콜에 최적화되어있는 HttpServlet 클래스를 상속 == doGet(),doPost()메서드 오버라이딩하면
+
+//class Address에 HttpServlet상속하겠다.
+public class Address extends HttpServlet {
+
+//doGet메소드를 오버라이딩한게 Http Get요청 처리하기 위한 메서드
+//request => 웹브라우저의 요청정보 읽음, response => 요청에대한 응답 전송, 두 객체 파라미터로 사용됨
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+//doGet을 호출해 동일하게 처리
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	doGet(request, response);
+
+- get방식 
+주소+매개변수 호출
+보안이 안좋음 url에 표시되고 변경도 가능하기 때문
+html에서 서블릿 호출
+
+- post방식 
+매개변수 본문에 포함해 호출
+보안이 우수함 url표시 안됨
+
+(jsp구성요소)
+html에 java 문법 코드가 삽입
+
+jsp 동작구조: 웹 페이지 클라이언트 요청 -> was:)동적인 컨텐츠를 제공하기 위해 만들어진 application Server == 웹 컨테이너 == 서블릿 컨테이너
+vs webserver : http의 요청받고 정적인 컨텐츠 제공
+-> was jsp page 에서 자바코드 생성 .java -> 컴파일 -> 서블릿 클래스 처리결과 응답 -> 웹 페이지에 전송
+
+- 디렉티브(지시자)
+<%@ %>: jsp페이지에 필요한 정보 지정
+- 스크립트
+스크립틀릿
+<% %>: jsp페이지에서 java코드 실행할때 사용
+표현식
+<%= %>: 자바식이 들어감, 상수, 변수이름, 연산자 포함, 메소드 호출가능
+선언부
+<%! %>: 자바 메소드 작성
+
+(데이터 처리방식)
+- 일괄처리방시스템: 외부 입력된 데이터를 모두 모아두었다 차례대로 작업 처리
+- 시분할 시스템: 입력받은 데이터 실시간 처리 시스템
+
+(multi-user system)
+operating system: 유저와 하드웨어 사이 인터페이스 역할
+single -user system: 한사람이 os 사용 -> 동시에 사용x 
+multi-user system: 여러사람이  os사용 -> 서버로 연결됨 -> 보안 취약/생산성과 효율성 ->
+
+(메모리 계층구조)
+cpu <-> memory <-> magnetic 
+<--메모리 접근 빠르고
+   비용많이듦
+   저장용량적음
+		그와 반대--> 
+		
+cpu내부 저장공간: 레지스터(고속메모리)
+속도가 빠른 메모리: cache(메인메모리 접근 용이)
+
+(데이터 베이스)
+완벽화,비중복화,구조화된 데이터를 저장
+-> 중복을 최소화/데이터 불일치 피한다.
+
+DBMS(DataBase Management System)
+
+db <-> dbms <-> pg <-> enduser <-> pg <- application programmer
+	    <-> enduser
+	    <-> dba(database administrator)
+
+시스템 
+-내부단계
+물리적인 저장장치,데이터 저장된 표현방식
+-개념단계
+데이터베이스관리자가 보는 논리적구조
+-외부단계
+사용자가 보는 데이터베이스 논리적구조
+-데이터정의어(ddl)
+-데이터조작어(dml)
+-데이터제어어(dcl)
